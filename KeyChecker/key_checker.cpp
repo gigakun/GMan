@@ -45,9 +45,10 @@ namespace KeyChecker
 		: mProcessThread()
 		, mKeysQueue()
 		, mKeysQueueLock()
+		, mProcessThreadShutdown(false)
 	{
 		mProcessThread = std::make_unique<std::thread>([this](){
-											while(1)
+											while(!this->ProcessThreadShutdown())
 											{
 												char res = -1;
 												int bytesWaiting = _kbhit();
@@ -68,6 +69,11 @@ namespace KeyChecker
 
 											}
 										});
+	}
+	KeyChecker::~KeyChecker()
+	{
+		mProcessThreadShutdown = true;
+		mProcessThread->join();
 	}
 	std::deque<char> KeyChecker::GetKeysQueue()
 	{

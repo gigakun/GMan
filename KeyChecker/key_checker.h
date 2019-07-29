@@ -4,6 +4,7 @@
 #include <memory>
 #include <thread>
 #include <mutex>
+#include <atomic>
 
 #include <deque>
 
@@ -13,15 +14,18 @@ namespace KeyChecker
 	{
 	public:
 		KeyChecker();
+		~KeyChecker();
 		std::deque<char> GetKeysQueue();
 		
 	private:
 		void UpdateKeysQueue(char);
+		bool ProcessThreadShutdown(){ return mProcessThreadShutdown; };
 
 	private:
 		std::unique_ptr<std::thread> mProcessThread;
 		std::deque<char> mKeysQueue;
 		std::mutex mKeysQueueLock;
+		std::atomic_bool mProcessThreadShutdown;
 	};
 }//namespace KeyChecker
 

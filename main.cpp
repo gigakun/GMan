@@ -6,7 +6,7 @@
 #include <deque>
 #include <string>
 
-#include "KeyChecker/key_checker.h"
+#include "game_engine.h"
 
 using namespace std;
 
@@ -111,18 +111,9 @@ int main(int argc, char const *argv[])
 	
 	}*/
 
-	KeyChecker::KeyChecker keyChecker;
+	GameEngine game;
 	
-	while(1)
-	{
-		std::deque<char> res = keyChecker.GetKeysQueue();
-		while(res.size() > 0)
-		{
-			cout << "Key pressed: " << res.front() << endl;
-			res.pop_front();
-		}
-		std::this_thread::sleep_for(std::chrono::seconds(5));
-	}
+	game.StartGame();
 
 	return 0;
 }
