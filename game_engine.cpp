@@ -11,6 +11,7 @@ void GameEngine::StartGame()
 	bool endGame = false;
 	while(!endGame)
 	{
+		auto start = std::chrono::system_clock::now();
 		std::deque<char> res = mKeyChecker.GetKeysQueue();
 		while(res.size() > 0)
 		{
@@ -29,6 +30,9 @@ void GameEngine::StartGame()
 			
 			res.pop_front();
 		}
-		std::this_thread::sleep_for(std::chrono::milliseconds(5));
+		auto end = std::chrono::system_clock::now();
+		std::chrono::duration<double> diff = end-start;
+		auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(diff).count();
+		std::this_thread::sleep_for(std::chrono::milliseconds(5 - duration_ms));
 	}
 }
