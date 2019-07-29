@@ -12,6 +12,8 @@ void GameEngine::StartGame()
 	while(!endGame)
 	{
 		auto start = std::chrono::system_clock::now();
+
+		//check user input
 		std::deque<char> res = mKeyChecker.GetKeysQueue();
 		while(res.size() > 0)
 		{
@@ -30,6 +32,14 @@ void GameEngine::StartGame()
 			
 			res.pop_front();
 		}
+
+		// calculate player
+
+		// calculate world
+
+		// check collisions
+
+
 		auto end = std::chrono::system_clock::now();
 		std::chrono::duration<double> diff = end-start;
 		auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(diff).count();
