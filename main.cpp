@@ -6,6 +6,8 @@
 #include <deque>
 #include <string>
 
+#include "KeyChecker/key_checker.h"
+
 using namespace std;
 
 class World
@@ -77,7 +79,7 @@ private:
 
 int main(int argc, char const *argv[])
 {
-	system("clear");
+	/*system("clear");
 	World world;
 	for(int y = 0; y < world.GetHeight(); y++)
 	{
@@ -107,7 +109,20 @@ int main(int argc, char const *argv[])
 			cout << "main(int argc, char const *argv[]): ERROR: y = " << y << ", line is invalid" << endl;
 		}
 	
-	}
+	}*/
+
+	KeyChecker::KeyChecker keyChecker;
 	
+	while(1)
+	{
+		std::deque<char> res = keyChecker.GetKeysQueue();
+		while(res.size() > 0)
+		{
+			cout << "Key pressed: " << res.front() << endl;
+			res.pop_front();
+		}
+		std::this_thread::sleep_for(std::chrono::seconds(5));
+	}
+
 	return 0;
 }
