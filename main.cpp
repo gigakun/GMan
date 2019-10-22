@@ -10,10 +10,10 @@
 
 using namespace std;
 
-class World
+class WorldOld
 {
 public:
-	World()
+	WorldOld()
 		: m_Width(64)
 		, m_Height(16)
 		, m_DisplayedWorld()
@@ -25,7 +25,7 @@ public:
 			m_DisplayedWorld.push_back(str);
 		}
 	}
-	~World(){};
+	~WorldOld(){};
 	char GetBlock(int x, int y)
 	{
 		char res = -1;
@@ -79,8 +79,8 @@ private:
 
 int main(int argc, char const *argv[])
 {
-	/*system("clear");
-	World world;
+/*	system("clear");
+	WorldOld world;
 	for(int y = 0; y < world.GetHeight(); y++)
 	{
 		for(int x = 0; x < world.GetWidth(); x++)

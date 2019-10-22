@@ -3,7 +3,9 @@
 #include <iostream>
 
 GameEngine::GameEngine()
-	:mKeyChecker()
+	: mKeyChecker()
+	, mPlayer()
+	, mWorld()
 	{}
 
 void GameEngine::StartGame()
@@ -20,7 +22,16 @@ void GameEngine::StartGame()
 			switch(res.front())
 			{
 				case 'w':
-					std::cout << "Key pressed: " << res.front() << std::endl;
+					mPlayer.Up();
+					break;
+				case 's':
+					mPlayer.Down();
+					break;
+				case 'a':
+					mPlayer.Left();
+					break;
+				case 'd':
+					mPlayer.Right();
 					break;
 				case 'q':
 					endGame = true;
@@ -34,8 +45,14 @@ void GameEngine::StartGame()
 		}
 
 		// calculate player
+		mPlayer.Refresh();
+		int playerX = -1;
+		int playerY = -1;
+		mPlayer.GetCurrentPos(playerX, playerY);
 
 		// calculate world
+		mWorld.SetPlayerPos(playerX, playerY);
+		mWorld.Refresh();
 
 		// check collisions
 
@@ -43,6 +60,6 @@ void GameEngine::StartGame()
 		auto end = std::chrono::system_clock::now();
 		std::chrono::duration<double> diff = end-start;
 		auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(diff).count();
-		std::this_thread::sleep_for(std::chrono::milliseconds(5 - duration_ms));
+		std::this_thread::sleep_for(std::chrono::milliseconds(100 - duration_ms));
 	}
 }
